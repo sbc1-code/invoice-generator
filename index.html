@@ -442,26 +442,26 @@
             <div class="form-section-title">Invoice Details</div>
             <div class="form-row">
                 <div class="form-group">
-                    <label>Invoice Number / Factura #</label>
+                    <label>Invoice Number</label>
                     <input type="text" id="invoiceNumber" value="INV-001" oninput="updatePreview()">
                 </div>
                 <div class="form-group">
-                    <label>Date / Fecha</label>
+                    <label>Date</label>
                     <input type="text" id="invoiceDate" value="3/1/2026" oninput="updatePreview()">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
-                    <label>Due Date / Fecha Limite</label>
+                    <label>Due Date</label>
                     <input type="text" id="dueDate" value="3/15/2026" oninput="updatePreview()">
                 </div>
                 <div class="form-group">
-                    <label>Terms / Terminos</label>
+                    <label>Terms</label>
                     <input type="text" id="terms" value="Net 15" oninput="updatePreview()">
                 </div>
             </div>
             <div class="form-group">
-                <label>Service Period / Periodo</label>
+                <label>Service Period</label>
                 <input type="text" id="servicePeriod" value="March 1-31, 2026" oninput="updatePreview()">
             </div>
         </div>
@@ -478,11 +478,11 @@
             </div>
             <div class="form-row">
                 <div class="form-group">
-                    <label>Rate / Tarifa (USD)</label>
+                    <label>Rate (USD)</label>
                     <input type="number" id="rate" value="1500" step="0.01" oninput="updatePreview()">
                 </div>
                 <div class="form-group">
-                    <label>Quantity / Cantidad</label>
+                    <label>Quantity</label>
                     <input type="number" id="quantity" value="1" step="0.01" oninput="updatePreview()">
                 </div>
             </div>
@@ -506,7 +506,7 @@ RFC: XXXXXXXXXXX</textarea>
         </div>
 
         <div class="form-section">
-            <div class="form-section-title">Bill To / Facturar a</div>
+            <div class="form-section-title">Bill To</div>
             <div class="form-group">
                 <label>Client Name and Address</label>
                 <textarea id="billTo" rows="4" oninput="updatePreview()">Client Corp S.A. de C.V.
@@ -635,12 +635,12 @@ Correo / Email: you@example.com</textarea>
                         <td class="inv-desc-cell">
                             <strong>${escapeHtml(descEs)} | ${escapeHtml(servicePeriod)}</strong><br>
                             <strong>${escapeHtml(descEn)} | ${escapeHtml(servicePeriod)}</strong><br><br>
-                            Servicios profesionales de consultoria incluyendo:<br>
+                            Servicios profesionales de consultoría incluyendo:<br>
                             Professional consulting services including:<br><br>
-                            &bull; Analisis y reporte / Analysis and reporting<br>
-                            &bull; Gestion de proyecto / Project management<br>
-                            &bull; Soporte tecnico / Technical support<br>
-                            &bull; Documentacion y entregables / Documentation and deliverables<br><br>
+                            &bull; Análisis y reporte / Analysis and reporting<br>
+                            &bull; Gestión de proyecto / Project management<br>
+                            &bull; Soporte técnico / Technical support<br>
+                            &bull; Documentación y entregables / Documentation and deliverables<br><br>
                             <em>Periodo de servicio / Service Period: ${escapeHtml(servicePeriod)}</em><br>
                             <em>Referencia / Contract Reference: Service Agreement</em>
                         </td>
