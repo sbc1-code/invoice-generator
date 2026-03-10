@@ -1,17 +1,19 @@
-# Bilingual Invoice Generator (EN/ES)
+# Invoice Generator
 
-CLI tool that generates professional, print-ready HTML invoices in both English and Spanish. Built for cross-border consulting engagements.
+Bilingual invoice generator for cross-border consulting.
 
-## Features
+**[Live Demo](https://sbc1-code.github.io/invoice-generator/)**
 
-- Bilingual layout (EN/ES) on every field: headers, labels, descriptions, payment terms
+## What it does
+
+- Interactive browser-based invoice generator with live preview
+- Bilingual EN/ES layout on every field: headers, labels, descriptions, payment terms
+- Fill in your details, see the invoice update in real time, then print or save as PDF
 - Print-optimized A4 format with clean borders and structured sections
-- CLI interface with configurable amount, quantity, period, and due date
-- Self-contained HTML output (no external dependencies for the invoice itself)
-- Wire transfer / banking details section
-- Factura numbering system
 
-## Usage
+The Python CLI version (`generate_invoice.py`) is also included for automation and scripting.
+
+## CLI Usage
 
 ```bash
 python3 generate_invoice.py \
@@ -34,22 +36,6 @@ python3 generate_invoice.py \
 ```
 
 Output: `./output/INV-001.html`
-
-Open the HTML file in a browser and print to PDF for a clean, professional invoice.
-
-## Customization
-
-Edit the HTML template inside `generate_invoice.py` to update:
-
-- Your name and address (header section)
-- Client billing info (bill-to section)
-- Banking / wire transfer details (totals section)
-- Line item descriptions
-- RFC / tax ID numbers
-
-## Requirements
-
-- Python 3.8+ (no external packages needed, uses only `argparse` and `pathlib`)
 
 ## License
 
