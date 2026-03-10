@@ -1,28 +1,89 @@
 #!/usr/bin/env python3
 """
-Bilingual Invoice Generator (EN/ES)
-Generates professional HTML invoices for cross-border consulting engagements.
+Invoice Generator (EN/ES)
+Generates professional HTML invoices with language toggle support.
 
 Usage:
     python3 generate_invoice.py --invoice-number INV-001 --date 2026-03-01 --period "March 1-31, 2026" --due-date 2026-03-15
-    python3 generate_invoice.py --invoice-number INV-002 --date 2026-04-01 --period "April 1-30, 2026" --due-date 2026-04-15 --amount 2500
+    python3 generate_invoice.py --invoice-number INV-002 --date 2026-04-01 --period "April 1-30, 2026" --due-date 2026-04-15 --amount 2500 --lang es
 """
 import argparse
 from pathlib import Path
 
 
-def generate_invoice(invoice_number, date, amount, quantity, period, due_date):
+LABELS = {
+    "en": {
+        "title": "Invoice",
+        "date": "Date",
+        "invoice_num": "Invoice #",
+        "bill_to": "Bill To",
+        "terms": "Terms",
+        "due_date": "Due Date",
+        "th_date": "Date",
+        "th_desc": "Description",
+        "th_qty": "Qty",
+        "th_rate": "Rate",
+        "th_amount": "Amount",
+        "desc_title": "Professional Consulting Services",
+        "service_intro": "Professional consulting services including:",
+        "bullet1": "Analysis and reporting",
+        "bullet2": "Project management",
+        "bullet3": "Technical support",
+        "bullet4": "Documentation and deliverables",
+        "service_period": "Service Period",
+        "contract_ref": "Contract Reference: Service Agreement",
+        "wire_details": "Wire Transfer Details:",
+        "bank": "Bank",
+        "account_holder": "Account Holder",
+        "account_num": "Account #",
+        "email": "Email",
+        "subtotal": "Subtotal",
+        "amount_due": "Amount Due (USD)",
+    },
+    "es": {
+        "title": "Factura",
+        "date": "Fecha",
+        "invoice_num": "Factura #",
+        "bill_to": "Facturar a",
+        "terms": "Terminos",
+        "due_date": "Fecha Limite",
+        "th_date": "Fecha",
+        "th_desc": "Descripcion",
+        "th_qty": "Cantidad",
+        "th_rate": "Tarifa",
+        "th_amount": "Monto",
+        "desc_title": "Servicios Profesionales de Consultoria",
+        "service_intro": "Servicios profesionales de consultoria incluyendo:",
+        "bullet1": "Analisis y reporte",
+        "bullet2": "Gestion de proyecto",
+        "bullet3": "Soporte tecnico",
+        "bullet4": "Documentacion y entregables",
+        "service_period": "Periodo de servicio",
+        "contract_ref": "Referencia: Acuerdo de Servicio",
+        "wire_details": "Datos Bancarios:",
+        "bank": "Banco",
+        "account_holder": "Titular",
+        "account_num": "No. de Cuenta",
+        "email": "Correo",
+        "subtotal": "Subtotal",
+        "amount_due": "Saldo (USD)",
+    },
+}
+
+
+def generate_invoice(invoice_number, date, amount, quantity, period, due_date, lang="en"):
+    L = LABELS[lang]
     total = amount * quantity
     amount_fmt = f"${amount:,.2f}"
     total_fmt = f"${total:,.2f}"
     qty_fmt = str(int(quantity)) if quantity == int(quantity) else str(quantity)
 
     html = f"""<!DOCTYPE html>
-<html lang="en-US">
+<html lang="{lang}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Factura / Invoice {invoice_number}</title>
+    <title>{L['title']} {invoice_number}</title>
     <style>
         body {{
             font-family: Arial, sans-serif;
@@ -206,116 +267,103 @@ def generate_invoice(invoice_number, date, amount, quantity, period, due_date):
 </head>
 <body>
     <div class="invoice-container">
-        <!-- Header -->
         <div class="header">
             <div class="company-info">
                 <div class="company-name">YOUR NAME HERE</div>
                 <div class="company-details">
-                    Servicios Digitales y Consultoría<br>
                     Digital Services &amp; Consulting<br>
                     123 Main Street, Suite A<br>
                     City, State 12345<br>
                     Ph. (555) 000-0000<br>
-                    RFC: XXXXXXXXXXX
+                    Tax ID: XXXXXXXXXXX
                 </div>
             </div>
             <div class="invoice-title">
-                <h1>Factura / Invoice</h1>
+                <h1>{L['title']}</h1>
                 <div class="invoice-meta">
                     <div class="meta-box">
-                        <div class="meta-label">Fecha / Date</div>
+                        <div class="meta-label">{L['date']}</div>
                         <div class="meta-value">{date}</div>
                     </div>
                     <div class="meta-box">
-                        <div class="meta-label">Factura #</div>
+                        <div class="meta-label">{L['invoice_num']}</div>
                         <div class="meta-value">{invoice_number}</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Bill To Section -->
         <div class="bill-to-section">
-            <div class="bill-to-header">Facturar a / Bill To</div>
+            <div class="bill-to-header">{L['bill_to']}</div>
             <div class="bill-to-content">
-                Client Corp S.A. de C.V.<br>
+                Client Corp<br>
                 456 Business Avenue, Suite B1<br>
-                Colonia Centro<br>
-                City, State, Country 00000<br>
-                RFC: XXXXXXXXXXX
+                City, State 00000<br>
+                Tax ID: XXXXXXXXXXX
             </div>
         </div>
 
-        <!-- Terms Section -->
         <div class="terms-section">
             <div class="terms-box">
-                <div class="terms-label">Términos / Terms</div>
+                <div class="terms-label">{L['terms']}</div>
                 <div class="terms-value">Net 15</div>
-                <div class="due-date-label">Fecha Límite / Due Date</div>
+                <div class="due-date-label">{L['due_date']}</div>
                 <div class="due-date-value">{due_date}</div>
             </div>
         </div>
 
-        <!-- Items Table -->
         <table class="items-table">
             <thead>
                 <tr>
-                    <th>Fecha / Date</th>
-                    <th>Descripción / Description</th>
-                    <th>Cantidad / Qty</th>
-                    <th>Tarifa / Rate</th>
-                    <th>Monto / Amount</th>
+                    <th>{L['th_date']}</th>
+                    <th>{L['th_desc']}</th>
+                    <th>{L['th_qty']}</th>
+                    <th>{L['th_rate']}</th>
+                    <th>{L['th_amount']}</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td class="number-cell">{date}</td>
                     <td class="description-cell">
-                        <strong>Servicios Profesionales de Consultoría | {period}</strong><br>
-                        <strong>Professional Consulting Services | {period}</strong><br><br>
+                        <strong>{L['desc_title']} | {period}</strong><br><br>
 
-                        Servicios profesionales de consultoría incluyendo:<br>
-                        Professional consulting services including:<br><br>
+                        {L['service_intro']}<br><br>
 
-                        &bull; Análisis y reporte / Analysis and reporting<br>
-                        &bull; Gestión de proyecto / Project management<br>
-                        &bull; Soporte técnico / Technical support<br>
-                        &bull; Documentación y entregables / Documentation and deliverables<br>
-                        &bull; Coordinación y seguimiento / Coordination and follow-up<br><br>
+                        &bull; {L['bullet1']}<br>
+                        &bull; {L['bullet2']}<br>
+                        &bull; {L['bullet3']}<br>
+                        &bull; {L['bullet4']}<br><br>
 
-                        <em>Periodo de servicio / Service Period: {period}</em><br>
-                        <em>Referencia / Contract Reference: Service Agreement</em>
+                        <em>{L['service_period']}: {period}</em><br>
+                        <em>{L['contract_ref']}</em>
                     </td>
                     <td class="number-cell">{qty_fmt}</td>
                     <td class="amount-cell">{amount_fmt}</td>
                     <td class="amount-cell">{total_fmt}</td>
                 </tr>
-                <tr>
-                    <td colspan="5" style="height: 80px; border-left: none; border-right: none; border-bottom: none;"></td>
-                </tr>
             </tbody>
         </table>
 
-        <!-- Totals Section -->
         <div class="totals-section">
             <div class="payment-info">
-                <strong>Datos Bancarios / Wire Transfer Details:</strong>
+                <strong>{L['wire_details']}</strong>
                 <div class="banking-details">
-                    Banco / Bank: Example Bank<br>
-                    Cuenta / Account: Your Name<br>
-                    No. de Cuenta / Account #: XXXX-XXXX-XXXX<br>
+                    {L['bank']}: Example Bank<br>
+                    {L['account_holder']}: Your Name<br>
+                    {L['account_num']}: XXXX-XXXX-XXXX<br>
                     Routing #: XXXXXXXXX<br>
                     Swift: XXXXXXXXX<br><br>
-                    Correo / Email: you@example.com
+                    {L['email']}: you@example.com
                 </div>
             </div>
             <table class="totals-table">
                 <tr>
-                    <td class="totals-label">Subtotal / Subtotal</td>
+                    <td class="totals-label">{L['subtotal']}</td>
                     <td class="totals-amount">{total_fmt}</td>
                 </tr>
                 <tr>
-                    <td class="totals-label">Saldo / Amount Due (USD)</td>
+                    <td class="totals-label">{L['amount_due']}</td>
                     <td class="totals-amount balance-due">{total_fmt}</td>
                 </tr>
             </table>
@@ -333,13 +381,14 @@ def generate_invoice(invoice_number, date, amount, quantity, period, due_date):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Generate bilingual HTML invoice")
+    parser = argparse.ArgumentParser(description="Generate HTML invoice")
     parser.add_argument("--invoice-number", required=True, help="e.g. INV-001")
     parser.add_argument("--date", required=True, help="Invoice date, e.g. 3/1/2026")
     parser.add_argument("--amount", type=float, default=1500.00, help="Rate per unit (default: 1500)")
     parser.add_argument("--quantity", type=float, default=1, help="Quantity (default: 1)")
     parser.add_argument("--period", required=True, help='e.g. "March 1-31, 2026"')
     parser.add_argument("--due-date", required=True, help="e.g. 3/15/2026")
+    parser.add_argument("--lang", choices=["en", "es"], default="en", help="Invoice language (default: en)")
     args = parser.parse_args()
 
     generate_invoice(
@@ -349,6 +398,7 @@ def main():
         quantity=args.quantity,
         period=args.period,
         due_date=args.due_date,
+        lang=args.lang,
     )
 
 
