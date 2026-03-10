@@ -271,17 +271,17 @@ def generate_invoice(invoice_number, date, amount, quantity, period, due_date):
                 <tr>
                     <td class="number-cell">{date}</td>
                     <td class="description-cell">
-                        <strong>Servicios Digitales e Inteligencia Estratégica | {period}</strong><br>
-                        <strong>Digital Services and Strategic Intelligence | {period}</strong><br><br>
+                        <strong>Servicios Profesionales de Consultoría | {period}</strong><br>
+                        <strong>Professional Consulting Services | {period}</strong><br><br>
 
-                        Retainer mensual por servicios digitales e inteligencia estratégica incluyendo:<br>
-                        Monthly retainer for digital services and strategic intelligence including:<br><br>
+                        Servicios profesionales de consultoría incluyendo:<br>
+                        Professional consulting services including:<br><br>
 
-                        &bull; Contenido para LinkedIn y sitio web / LinkedIn and web content<br>
-                        &bull; Monitoreo de mercado e inteligencia / Market monitoring and intelligence<br>
-                        &bull; Mantenimiento de base de datos / Database maintenance<br>
-                        &bull; Contenido para inversionistas / Investor-focused content<br>
-                        &bull; Reuniones estratégicas y coordinación / Strategic meetings and coordination<br><br>
+                        &bull; Análisis y reporte / Analysis and reporting<br>
+                        &bull; Gestión de proyecto / Project management<br>
+                        &bull; Soporte técnico / Technical support<br>
+                        &bull; Documentación y entregables / Documentation and deliverables<br>
+                        &bull; Coordinación y seguimiento / Coordination and follow-up<br><br>
 
                         <em>Periodo de servicio / Service Period: {period}</em><br>
                         <em>Referencia / Contract Reference: Service Agreement</em>
