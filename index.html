@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invoice Generator</title>
+    <meta name="description" content="Professional invoice generator with EN/ES language toggle, live preview, and print-to-PDF. Light and dark mode.">
+    <meta property="og:title" content="Invoice Generator">
+    <meta property="og:description" content="Professional invoice generator with EN/ES language toggle, live preview, and print-to-PDF. Light and dark mode.">
     <style>
         *, *::before, *::after {
             box-sizing: border-box;
@@ -461,6 +464,17 @@
             }
         }
 
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0,0,0,0);
+            border: 0;
+        }
+
         /* ---- Print Styles ---- */
         @media print {
             body {
@@ -501,6 +515,8 @@
     </style>
 </head>
 <body>
+
+<h1 class="sr-only">Invoice Generator</h1>
 
 <header class="app-header">
     <div>
